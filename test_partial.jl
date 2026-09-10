@@ -59,7 +59,7 @@ end
             [1.0 2; 2 4],
             Matrix(Diagonal([1.0, 0, 1])),
         )
-            @test_throws ErrorException lup_partial_pivot(A)
+            @test_throws SingularException lup_partial_pivot(A)
         end
     end
 end
