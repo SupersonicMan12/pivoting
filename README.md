@@ -15,8 +15,33 @@ It is independently checked against various invariants and a separate Schur-comp
 Tests:
 
 ```bash
-julia --startup-file=no test_growth_complete.jl
 julia --startup-file=no test_complete.jl
 julia --startup-file=no test_partial.jl
-julia --startup-file=no test_partial_solve.jl
+julia --startup-file=no test_solve_partial.jl
+julia --startup-file=no test_growth_complete.jl
+julia --startup-file=no test_growth_partial.jl
 ```
+
+## Average-growth experiment
+
+Generate the paired Gaussian-matrix data:
+
+```bash
+julia --startup-file=no experiments/average_growth.jl
+```
+
+Validate and generate the median-growth figure:
+
+```bash
+python3 experiments/graph.py
+```
+
+This produced:
+
+```markdown
+![Median growth under partial and complete pivoting](figures/median_growth.png)
+```
+
+## Development Note
+
+I implemented the elimination and growth-tracking routines while learning numerical linear algebra and Julia. I used an AI coding assistant, GPT 5.6 Sol Medium, for syntax guidance, code review, test and experiment planning and a plotting scaffold. All numerical results were generated locally. All implementations, except visualization, are completely handwritten.
