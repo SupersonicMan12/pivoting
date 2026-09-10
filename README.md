@@ -27,21 +27,23 @@ julia --startup-file=no test_growth_partial.jl
 Generate the paired Gaussian-matrix data:
 
 ```bash
-julia --startup-file=no experiments/average_growth.jl
+julia --startup-file=no average_growth_experiments/average_growth.jl
 ```
 
 Validate and generate the median-growth figure:
 
 ```bash
-python3 experiments/graph.py
+python3 average_growth_experiments/graph.py
 ```
 
 This produced:
 
-```markdown
 ![Median growth under partial and complete pivoting](figures/median_growth.png)
-```
+
+## g5 Verification
+
+See README.md in g5
 
 ## Development Note
 
-I implemented the elimination and growth-tracking routines while learning numerical linear algebra and Julia. I used an AI coding assistant, GPT 5.6 Sol Medium, for syntax guidance, code review, test and experiment planning and a plotting scaffold. All numerical results were generated locally. All implementations, except visualization, are completely handwritten.
+I implemented the elimination and growth-tracking routines while learning numerical linear algebra and Julia. I used an AI coding assistant for syntax guidance, code review, testing and experiment scaffolding, and visualization. All numerical results were generated locally and checked against separate Schur-complement calculations.
