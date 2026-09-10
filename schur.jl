@@ -39,3 +39,36 @@ function schur_complete_growth(A::AbstractMatrix)
         stage_growth
     )
 end
+
+function schur_partial_growth(A::AbstractMatrix)
+    S = Matrix{Float64}(A)
+    initial_max = maximum(abs.(S))
+    stage_maxima = Float64[]
+    while size(S, 1) > 0
+        stage_maximum = maximum(abs.(S))
+        push!(stage_maxima, stage_maximum)
+        pivot_row = argmax(abs.(S[:, 1]))
+        pivot_magnitude = abs(S[pivot_row, 1])
+        if pivot_magnitude == 0.0
+            throw(SingularException(length(stage_maxima)))
+        end
+        if pivot_row != 1
+            S[[1, pivot_row], :] = S[[pivot_row, 1], :]
+        end
+        if size(S, 1) == 1
+            break
+        end
+        pivot = S[1, 1]
+        column = S[2:end, 1]
+        row = S[1, 2:end]
+        B = S[2:end, 2:end]
+        S = B - column * transpose(row) / pivot
+    end
+    stage_growth = stage_maxima ./ initial_max
+    growth = maximum(stage_growth)
+    return (;
+        growth, 
+        stage_maxima,
+        stage_growth
+    )
+end
